@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waitlist Portal | She Travels Far</title>
+    
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sand: '#F3EFE5',
+                        charcoal: '#2B2B2B',
+                        olive: '#7A8357',
+                        deepOlive: '#5E6841',
+                        terracotta: '#C97A5A',
+                        clay: '#DCCBB8',
+                        mist: '#C0CBC4',
+                        latte: '#8B8173',
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    letterSpacing: {
+                        widest: '.15em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F3EFE5;
+            color: #2B2B2B;
+        }
+        /* Loader animation */
+        .loader {
+            border: 3px solid #F3EFE5;
+            border-bottom-color: #7A8357;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="bg-sand border-b border-charcoal/10 w-full z-40">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="font-serif text-xl tracking-wide text-charcoal hover:text-olive transition-colors">
+                SHE TRAVELS FAR <span class="text-sm font-sans uppercase tracking-widest text-olive ml-2">Portal</span>
+            </a>
+            
+            <!-- Show only when logged in -->
+            <button id="logoutBtn" class="hidden text-xs uppercase tracking-widest text-charcoal hover:text-terracotta transition-colors font-medium">
+                Sign Out <i class="fa-solid fa-arrow-right-from-bracket ml-1"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow flex items-center justify-center p-6">
+        
+        <!-- ================= LOGIN SECTION ================= -->
+        <div id="loginSection" class="w-full max-w-md bg-white p-8 md:p-10 shadow-xl border border-clay hidden">
+            <div class="text-center mb-8">
+                <h2 class="font-serif text-3xl text-charcoal mb-2">Admin Login</h2>
+                <p class="text-sm text-charcoal/60">Enter your credentials to view the waitlist.</p>
+            </div>
+
+            <div id="loginError" class="hidden mb-6 p-3 bg-red-50 border border-red-200 text-red-800 text-xs uppercase tracking-wider text-center font-medium"></div>
+
+            <form id="loginForm" class="space-y-5">
+                <div>
+                    <label for="email" class="block text-xs uppercase tracking-widest text-charcoal mb-2">Email Address</label>
+                    <input type="email" id="email" required class="w-full bg-sand/30 border border-clay p-3 text-charcoal focus:outline-none focus:border-olive transition-colors">
+                </div>
+                <div>
+                    <label for="password" class="block text-xs uppercase tracking-widest text-charcoal mb-2">Password</label>
+                    <input type="password" id="password" required class="w-full bg-sand/30 border border-clay p-3 text-charcoal focus:outline-none focus:border-olive transition-colors">
+                </div>
+                <button type="submit" id="loginSubmitBtn" class="w-full bg-olive hover:bg-deepOlive text-white py-4 mt-2 uppercase tracking-widest text-sm transition-colors duration-300 font-medium flex justify-center items-center h-14">
+                    <span>Access Portal</span>
+                    <span id="loginSpinner" class="loader w-5 h-5 hidden ml-2"></span>
+                </button>
+            </form>
+        </div>
+
+        <!-- ================= DASHBOARD SECTION ================= -->
+        <div id="dashboardSection" class="w-full max-w-6xl hidden h-full flex-col">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                <div>
+                    <h1 class="font-serif text-3xl md:text-4xl text-charcoal">Waitlist Entries</h1>
+                    <p class="text-sm text-charcoal/60 mt-2">Manage and view your prospective travelers.</p>
+                </div>
+                <div class="flex gap-3">
+                    <button id="refreshBtn" class="border border-olive text-olive hover:bg-olive hover:text-white px-5 py-2.5 uppercase tracking-widest text-xs transition-colors duration-300 font-medium">
+                        <i class="fa-solid fa-rotate-right mr-2"></i> Refresh
+                    </button>
+                    <button id="exportBtn" class="bg-olive hover:bg-deepOlive text-white px-5 py-2.5 uppercase tracking-widest text-xs transition-colors duration-300 font-medium">
+                        <i class="fa-solid fa-file-csv mr-2"></i> Export CSV
+                    </button>
+                </div>
+            </div>
+
+            <!-- Table Container -->
+            <div class="bg-white border border-clay shadow-sm overflow-hidden flex-grow">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-sand/50 border-b border-clay">
+                                <th class="p-4 text-xs uppercase tracking-widest text-charcoal/70 font-semibold w-16">#</th>
+                                <th class="p-4 text-xs uppercase tracking-widest text-charcoal/70 font-semibold">First Name</th>
+                                <th class="p-4 text-xs uppercase tracking-widest text-charcoal/70 font-semibold">Email Address</th>
+                                <th class="p-4 text-xs uppercase tracking-widest text-charcoal/70 font-semibold">Date Joined</th>
+                            </tr>
+                        </thead>
+                        <tbody id="waitlistBody" class="divide-y divide-clay text-sm text-charcoal">
+                            <!-- Rows will be injected here via JS -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Loading State for Table -->
+                <div id="tableLoader" class="p-12 text-center text-charcoal/50 flex flex-col items-center hidden">
+                    <span class="loader w-8 h-8 border-[3px] border-olive/30 border-b-olive mb-4"></span>
+                    <p class="text-xs uppercase tracking-widest">Loading entries...</p>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="p-16 text-center text-charcoal/50 hidden">
+                    <i class="fa-regular fa-folder-open text-4xl mb-4 text-clay"></i>
+                    <p class="font-serif text-lg text-charcoal">No entries found.</p>
+                    <p class="text-sm">The waitlist is currently empty.</p>
+                </div>
+            </div>
+            
+            <!-- Pagination / Stats Area -->
+            <div class="mt-4 text-xs uppercase tracking-widest text-charcoal/50 text-right">
+                Total Signups: <span id="totalCount" class="font-bold text-olive">0</span>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-sand border-t border-charcoal/10 py-6 text-center text-xs text-charcoal/40 uppercase tracking-widest">
+        &copy; 2026 She Travels Far | Admin Portal
+    </footer>
+
+    <script>
+        // Wrapped in an IIFE (Immediately Invoked Function Expression)
+        // This prevents 'has already been declared' errors if the script is evaluated multiple times 
+        // in hot-reloading preview environments.
+        (() => {
+            // Initialize Supabase (Same credentials as main site)
+            const supabaseUrl = 'https://bkpjlcqynldtmksxtcty.supabase.co';
+            const supabaseKey = 'sb_publishable_qu5k31ByzvqOMCvvhxgQew_RZzbV-5e';
+            
+            // Renamed from 'supabase' to 'supabaseClient' to avoid conflicting with the global 'window.supabase' 
+            // object created by the CDN script above.
+            const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+            // UI Elements
+            const loginSection = document.getElementById('loginSection');
+            const dashboardSection = document.getElementById('dashboardSection');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const loginForm = document.getElementById('loginForm');
+            const loginError = document.getElementById('loginError');
+            const waitlistBody = document.getElementById('waitlistBody');
+            const tableLoader = document.getElementById('tableLoader');
+            const emptyState = document.getElementById('emptyState');
+            const totalCountSpan = document.getElementById('totalCount');
+            
+            let waitlistData = []; // Store data for CSV export
+
+            // --- Auth State Management ---
+            async function checkSession() {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                if (session) {
+                    showDashboard();
+                } else {
+                    showLogin();
+                }
+
+                // Listen for auth changes
+                supabaseClient.auth.onAuthStateChange((event, session) => {
+                    if (event === 'SIGNED_IN') showDashboard();
+                    if (event === 'SIGNED_OUT') showLogin();
+                });
+            }
+
+            function showLogin() {
+                loginSection.classList.remove('hidden');
+                dashboardSection.classList.add('hidden');
+                logoutBtn.classList.add('hidden');
+                document.body.classList.remove('bg-sand/30'); // specific portal bg
+            }
+
+            function showDashboard() {
+                loginSection.classList.add('hidden');
+                dashboardSection.classList.remove('hidden');
+                dashboardSection.classList.add('flex');
+                logoutBtn.classList.remove('hidden');
+                document.body.classList.add('bg-sand/30'); // softer bg for dashboard
+                
+                fetchWaitlist();
+            }
+
+            // --- Authentication ---
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const submitBtn = document.getElementById('loginSubmitBtn');
+                const spinner = document.getElementById('loginSpinner');
+                const btnText = submitBtn.querySelector('span');
+
+                // UI Loading state
+                submitBtn.disabled = true;
+                btnText.innerText = 'Verifying...';
+                spinner.classList.remove('hidden');
+                loginError.classList.add('hidden');
+
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password,
+                });
+
+                // Restore UI state
+                submitBtn.disabled = false;
+                btnText.innerText = 'Access Portal';
+                spinner.classList.add('hidden');
+
+                if (error) {
+                    loginError.innerText = error.message;
+                    loginError.classList.remove('hidden');
+                } else {
+                    loginForm.reset();
+                }
+            });
+
+            logoutBtn.addEventListener('click', async () => {
+                await supabaseClient.auth.signOut();
+            });
+
+            // --- Data Fetching ---
+            async function fetchWaitlist() {
+                // Show loader, clear table
+                waitlistBody.innerHTML = '';
+                tableLoader.classList.remove('hidden');
+                emptyState.classList.add('hidden');
+                waitlistData = [];
+
+                // Fetch data ordered by newest first
+                const { data, error } = await supabaseClient
+                    .from('waitlist')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                tableLoader.classList.add('hidden');
+
+                if (error) {
+                    console.error("Error fetching waitlist:", error);
+                    waitlistBody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-red-600">Error loading data. Check console or database permissions.</td></tr>`;
+                    return;
+                }
+
+                if (!data || data.length === 0) {
+                    emptyState.classList.remove('hidden');
+                    totalCountSpan.innerText = '0';
+                    return;
+                }
+
+                waitlistData = data;
+                totalCountSpan.innerText = data.length;
+
+                data.forEach((entry, index) => {
+                    // Format date nicely (e.g., Oct 12, 2026 - 14:30)
+                    const dateObj = new Date(entry.created_at || new Date());
+                    const dateStr = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    const timeStr = dateObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+                    const row = document.createElement('tr');
+                    row.className = 'hover:bg-sand/30 transition-colors';
+                    row.innerHTML = `
+                        <td class="p-4 border-b border-clay/50 text-charcoal/50">${index + 1}</td>
+                        <td class="p-4 border-b border-clay/50 font-medium">${escapeHTML(entry.first_name || '-')}</td>
+                        <td class="p-4 border-b border-clay/50"><a href="mailto:${escapeHTML(entry.email)}" class="text-olive hover:underline">${escapeHTML(entry.email)}</a></td>
+                        <td class="p-4 border-b border-clay/50 text-charcoal/70 text-xs">${dateStr} <span class="text-charcoal/40 ml-1">${timeStr}</span></td>
+                    `;
+                    waitlistBody.appendChild(row);
+                });
+            }
+
+            // --- Utilities ---
+            document.getElementById('refreshBtn').addEventListener('click', fetchWaitlist);
+
+            document.getElementById('exportBtn').addEventListener('click', () => {
+                if (waitlistData.length === 0) return alert('No data to export.');
+                
+                // Create CSV string
+                let csvContent = "data:text/csv;charset=utf-8,";
+                csvContent += "ID,First Name,Email,Date Joined\n"; // Header
+                
+                waitlistData.forEach(row => {
+                    const id = row.id || '';
+                    const name = `"${(row.first_name || '').replace(/"/g, '""')}"`;
+                    const email = `"${(row.email || '').replace(/"/g, '""')}"`;
+                    const date = row.created_at ? new Date(row.created_at).toISOString() : '';
+                    
+                    csvContent += `${id},${name},${email},${date}\n`;
+                });
+
+                // Trigger download
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", `shetravelsfar_waitlist_${new Date().toISOString().split('T')[0]}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            // Simple HTML escaper to prevent XSS if people enter weird names
+            function escapeHTML(str) {
+                if (!str) return '';
+                const div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            }
+
+            // --- Initialization ---
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', checkSession);
+            } else {
+                checkSession();
+            }
+        })();
+    </script>
+</body>
+</html>
