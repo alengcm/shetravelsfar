@@ -6,18 +6,14 @@
     <title>She Travels Far | Women’s Small Group Travel</title>
     <meta name="description" content="Curated fully inclusive land-only small group journeys for women seeking connection, culture and confidence.">
     
-    <!-- Supabase Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- Fonts: Playfair Display & Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
-    <!-- Icons -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -83,10 +79,8 @@
 </head>
 <body class="font-sans antialiased selection:bg-terracotta selection:text-white relative">
 
-    <!-- Navigation (Sticky, Minimal) -->
     <nav class="fixed w-full z-40 bg-sand/95 backdrop-blur-sm border-b border-charcoal/5 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
-            <!-- Logo -->
             <a href="#" class="block">
                 <img src="images/logo.png" 
                      onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';"
@@ -105,12 +99,10 @@
                 <a href="#founders" class="hover:text-olive transition-colors self-center">Founders</a>
                 <a href="#waitlist" class="text-olive hover:text-deepOlive transition-colors font-bold self-center">Join Waitlist</a>
             </div>
-            <!-- Mobile Menu Button -->
             <button class="md:hidden text-charcoal text-xl" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
-        <!-- Mobile Menu Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden bg-sand border-b border-charcoal/10 absolute w-full">
             <div class="flex flex-col p-6 space-y-4 text-center">
                 <a href="#mission" class="uppercase tracking-widest text-sm hover:text-olive">Mission</a>
@@ -121,7 +113,6 @@
         </div>
     </nav>
 
-    <!-- 1. HERO SECTION -->
     <header class="relative h-screen min-h-[600px] w-full flex items-center justify-center text-center px-4">
         <div class="absolute inset-0 z-0">
             <img 
@@ -138,20 +129,24 @@
                 She travels far — <br class="hidden md:block"/>not to escape life, but to live it.
             </h1>
             <p class="text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto drop-shadow text-white editorial-text">
-                Thoughtfully curated, fully inclusive journeys for women who want to travel further — together.
+                Hosted small-group journeys for women — planned with care, so you don’t have to plan at all.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#waitlist" class="bg-olive hover:bg-deepOlive text-white px-8 py-4 uppercase tracking-widest text-sm transition-colors duration-300 shadow-lg">
-                    Join the Founding Waitlist
-                </a>
-                <a href="#mission" class="border border-sand hover:bg-sand hover:text-charcoal text-white px-8 py-4 uppercase tracking-widest text-sm transition-colors duration-300">
-                    Learn More
-                </a>
+            <div class="flex flex-col items-center">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center w-full">
+                    <a href="#first-journey" class="bg-olive hover:bg-deepOlive text-white px-8 py-4 uppercase tracking-widest text-sm transition-colors duration-300 shadow-lg text-center">
+                        Discover Our First Journey
+                    </a>
+                    <a href="#waitlist" class="border border-sand hover:bg-sand hover:text-charcoal text-white px-8 py-4 uppercase tracking-widest text-sm transition-colors duration-300 text-center">
+                        Join Our Waitlist
+                    </a>
+                </div>
+                <p class="mt-6 text-sm md:text-base font-medium text-white/90 drop-shadow-sm tracking-wide">
+                    Early access. First release dates. Priority booking.
+                </p>
             </div>
         </div>
     </header>
 
-    <!-- 2. MISSION SECTION -->
     <section id="mission" class="py-24 md:py-32 bg-sand px-6">
         <div class="max-w-3xl mx-auto text-center fade-in-section">
             <span class="text-olive uppercase tracking-widest text-xs font-bold mb-4 block">Our Purpose</span>
@@ -163,11 +158,9 @@
         </div>
     </section>
 
-    <!-- 3. WHAT’S INCLUDED SECTION -->
     <section id="included" class="py-24 bg-clay px-6">
         <div class="max-w-6xl mx-auto">
             <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center fade-in-section">
-                <!-- Text Column -->
                 <div class="order-2 md:order-1">
                     <h2 class="font-serif text-3xl md:text-4xl mb-6 text-charcoal">Fully Inclusive. <br>Thoughtfully Designed.</h2>
                     <p class="editorial-text mb-8 text-charcoal/80">
@@ -203,12 +196,11 @@
 
                     <div class="bg-sand/30 p-6 border-l-4 border-olive">
                         <p class="text-sm leading-relaxed text-charcoal italic">
-                            Flights are booked separately so you can travel from wherever you are. While flights are not included, Lauren — founder of The Point Whiz — can provide optional guidance on using existing points or selecting suitable paid fares to help you travel with confidence.
+                            Flights are booked separately so you can travel from wherever you are. While flights are not included, Lauren — founder of The Point Whiz — offers optional guidance on using existing airline or credit card points, or selecting suitable paid fares, so your journey begins with clarity and confidence.
                         </p>
                     </div>
                 </div>
 
-                <!-- Image Column -->
                 <div class="order-1 md:order-2 relative h-full min-h-[400px]">
                     <img 
                         src="images/1000038400.jpg"
@@ -221,14 +213,12 @@
         </div>
     </section>
 
-    <!-- 4. FOUNDERS SECTION (Redesigned) -->
     <section id="founders" class="py-24 bg-sand px-6">
         <div class="max-w-6xl mx-auto">
             <h2 class="font-serif text-3xl md:text-4xl text-center mb-16 text-charcoal">Meet The Founders</h2>
             
             <div class="grid md:grid-cols-2 gap-12 lg:gap-16 fade-in-section items-start">
                 
-                <!-- Joint Image Column -->
                 <div class="relative w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden shadow-lg">
                      <img 
                         src="images/1000038396.jpg"
@@ -238,15 +228,13 @@
                     >
                 </div>
 
-                <!-- Bios Text Column -->
                 <div class="flex flex-col justify-center space-y-12">
                     <div class="prose prose-lg text-charcoal/80">
                         <p class="italic font-serif text-xl text-charcoal">
-                            "We created She Travels Far because we wanted to travel better. Not faster, not cheaper—but deeper. With more connection and less worry."
+                            "She Travels Far was born from a simple truth — we hadn’t seen each other in person for seven years. Life got busy, travel felt complicated, and finding someone to go with wasn’t always easy. So we planned a trip together. That trip reminded us how powerful it is to share travel with someone you trust — and how many women are quietly craving the same thing."
                         </p>
                     </div>
 
-                    <!-- Lauren Bio -->
                     <div>
                         <h3 class="font-serif text-2xl text-charcoal flex items-center gap-3">
                             Lauren 
@@ -258,7 +246,6 @@
                         </p>
                     </div>
 
-                    <!-- Celeste Bio -->
                     <div>
                         <h3 class="font-serif text-2xl text-charcoal flex items-center gap-3">
                             Celeste 
@@ -275,41 +262,50 @@
         </div>
     </section>
 
-    <!-- 5. EXPERIENCES SECTION -->
-    <section class="relative py-32 flex items-center justify-center text-center px-4">
-        <!-- Background Image -->
+    <section id="first-journey" class="relative py-32 flex items-center justify-center text-center px-4">
         <div class="absolute inset-0 z-0">
             <img 
-                src="images/1000038398.jpg"
+                src="images/1000038464.jpg"
                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=2039&auto=format&fit=crop';"
                 alt="Longtail boat in tropical waters" 
                 class="w-full h-full object-cover"
             >
-            <div class="absolute inset-0 bg-charcoal/30"></div>
+            <div class="absolute inset-0 bg-charcoal/40"></div>
         </div>
 
-        <div class="relative z-10 max-w-2xl mx-auto text-sand fade-in-section">
-            <h2 class="font-serif text-3xl md:text-5xl mb-4 text-white drop-shadow-md">Our First Journeys Are Coming</h2>
+        <div class="relative z-10 max-w-3xl mx-auto text-sand fade-in-section">
+            <h2 class="font-serif text-3xl md:text-5xl mb-4 text-white drop-shadow-md">Our First Journey</h2>
             <div class="w-16 h-1 bg-terracotta mx-auto mb-8"></div>
-            <p class="text-lg md:text-xl font-light mb-8 text-white drop-shadow-md">
-                From lush hinterlands to pristine tropical coasts. Think connection, culture, and comfort without the overwhelm.
+            
+            <p class="text-xl md:text-2xl font-serif italic mb-6 text-white/90">
+                Launching September 2026 — Hoi An, Vietnam.
             </p>
-            <p class="text-2xl font-serif italic mb-10 text-white/90">Launching 2026</p>
+            
+            <p class="text-lg md:text-xl font-light mb-6 text-white drop-shadow-md">
+                A 7-night, 8-day hosted small-group experience designed for connection, culture, and ease.
+            </p>
+            
+            <p class="text-base md:text-lg font-light mb-10 text-white/90 drop-shadow-md leading-relaxed">
+                Every detail is thoughtfully planned for you — from boutique accommodation and curated cultural experiences to shared meals and seamless daily flow. You’ll arrive knowing everything is handled, and leave having connected with like-minded women who value depth, culture, and meaningful travel.
+            </p>
+            
+            <p class="text-base md:text-lg font-medium mb-10 text-white drop-shadow-md">
+                Connection, culture, and travel in safe hands — join the waitlist for early access to our first journey.
+            </p>
+            
             <a href="#waitlist" class="bg-olive hover:bg-deepOlive text-white px-8 py-4 uppercase tracking-widest text-sm transition-colors duration-300 shadow-lg inline-block">
                 Join the Waitlist
             </a>
         </div>
     </section>
 
-    <!-- 6. FOUNDING CIRCLE / WAITLIST -->
     <section id="waitlist" class="py-24 bg-sand px-6">
         <div class="max-w-xl mx-auto text-center fade-in-section">
-            <h2 class="font-serif text-3xl md:text-4xl text-charcoal mb-6">Be Part of the Founding Circle</h2>
+            <h2 class="font-serif text-3xl md:text-4xl text-charcoal mb-6">Be Part of the Circle</h2>
             <p class="editorial-text text-charcoal/80 mb-10">
                 Join our private list and be the first to access launch dates for our South East Asia & Australian collections.
             </p>
 
-            <!-- Status Message Container -->
             <div id="form-status" class="hidden mb-6 p-4 border border-olive bg-sand text-olive text-sm uppercase tracking-wider font-medium"></div>
 
             <form id="waitlistForm" class="space-y-4 text-left">
@@ -329,20 +325,17 @@
         </div>
     </section>
 
-    <!-- 7. FOOTER -->
     <footer class="bg-deepOlive text-sand py-16 px-6">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start gap-10">
             
-            <!-- Brand -->
             <div class="text-center md:text-left">
                 <h3 class="font-serif text-2xl mb-4">SHE TRAVELS FAR</h3>
-                <a href="mailto:lauren@shetravelsfar.com" class="text-sand/80 hover:text-white transition-colors border-b border-sand/30 pb-1 text-sm">lauren@shetravelsfar.com</a>
+                <a href="mailto:admin@shetravelsfar.com" class="text-sand/80 hover:text-white transition-colors border-b border-sand/30 pb-1 text-sm">admin@shetravelsfar.com</a>
                 <div class="mt-6">
                     <a href="#" class="text-2xl hover:text-clay transition-colors"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
 
-            <!-- Navigation -->
             <div class="flex flex-col md:flex-row gap-8 md:gap-16 text-center md:text-left text-sm uppercase tracking-widest font-light">
                 <ul class="space-y-3">
                     <li><a href="#" class="hover:text-clay transition-colors">Home</a></li>
@@ -355,11 +348,10 @@
                 </ul>
             </div>
 
-            <!-- Legal Links -->
             <div class="text-center md:text-right text-xs text-sand/60 space-y-2">
-                <p><button onclick="openModal('privacy')" class="hover:text-white hover:underline">Privacy Policy</button></p>
-                <p><button onclick="openModal('terms')" class="hover:text-white hover:underline">Terms & Conditions</button></p>
-                <p><button onclick="openModal('disclaimer')" class="hover:text-white hover:underline">Disclaimer</button></p>
+                <p><button onclick="openModal('privacy')" class="hover:text-white hover:underline transition-all">Privacy Policy</button></p>
+                <p><button onclick="openModal('terms')" class="hover:text-white hover:underline transition-all">Terms & Conditions</button></p>
+                <p><button onclick="openModal('disclaimer')" class="hover:text-white hover:underline transition-all">Disclaimer</button></p>
             </div>
         </div>
 
@@ -368,12 +360,9 @@
         </div>
     </footer>
 
-    <!-- LEGAL MODAL -->
     <div id="legalModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
-        <!-- Backdrop -->
         <div class="absolute inset-0 bg-charcoal/80 backdrop-blur-sm" onclick="closeModal()"></div>
         
-        <!-- Content -->
         <div class="relative bg-sand w-full max-w-2xl max-h-[80vh] overflow-y-auto shadow-2xl p-8 md:p-12">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-charcoal hover:text-olive text-xl">
                 <i class="fa-solid fa-times"></i>
@@ -382,8 +371,7 @@
             <h2 id="modalTitle" class="font-serif text-2xl md:text-3xl text-charcoal mb-6 border-b border-terracotta pb-4"></h2>
             
             <div id="modalContent" class="editorial-text text-sm text-charcoal/80 space-y-4">
-                <!-- Content injected via JS -->
-            </div>
+                </div>
 
             <div class="mt-8 pt-4 border-t border-charcoal/10 text-center">
                 <button onclick="closeModal()" class="text-xs uppercase tracking-widest text-olive hover:text-deepOlive font-bold">Close</button>
@@ -391,39 +379,9 @@
         </div>
     </div>
 
-    <!-- Logic Script -->
     <script>
-        // Modal Content Data (Standard Australian Placeholder)
+        // Modal Content Data
         const legalData = {
-            privacy: {
-                title: "Privacy Policy",
-                content: `
-                    <p><strong>Last Updated: January 2026</strong></p>
-                    <p>She Travels Far ("we", "us", or "our") is committed to protecting your personal information in accordance with the <em>Privacy Act 1988</em> (Cth) and the Australian Privacy Principles (APPs).</p>
-                    <h4 class="font-bold text-charcoal mt-4">1. Collection of Information</h4>
-                    <p>We collect personal information necessary to provide our travel services, including your name, email address, dietary requirements, and passport details when a booking is made. We collect this directly from you via our website forms.</p>
-                    <h4 class="font-bold text-charcoal mt-4">2. Use and Disclosure</h4>
-                    <p>We use your information to facilitate your travel bookings, communicate with you, and improve our services. We may disclose your information to third-party providers (hotels, transport operators) solely for the purpose of fulfilling your booking.</p>
-                    <h4 class="font-bold text-charcoal mt-4">3. Data Security</h4>
-                    <p>We take reasonable steps to protect your personal information from misuse, interference, loss, and unauthorized access.</p>
-                    <h4 class="font-bold text-charcoal mt-4">4. Contact</h4>
-                    <p>If you have any questions about this policy, please contact us at lauren@shetravelsfar.com.</p>
-                `
-            },
-            terms: {
-                title: "Terms & Conditions",
-                content: `
-                    <p><strong>Effective Date: January 2026</strong></p>
-                    <h4 class="font-bold text-charcoal mt-4">1. Booking & Deposits</h4>
-                    <p>A non-refundable deposit is required to secure your spot on any She Travels Far journey. Final payment is due 90 days prior to departure. All prices are quoted in Australian Dollars (AUD) unless otherwise specified.</p>
-                    <h4 class="font-bold text-charcoal mt-4">2. Cancellations</h4>
-                    <p>Cancellations must be made in writing. Cancellation fees apply based on the timeframe before departure. We strongly recommend purchasing comprehensive travel insurance at the time of booking to cover unforeseen cancellations.</p>
-                    <h4 class="font-bold text-charcoal mt-4">3. Land-Only Basis</h4>
-                    <p>Our trips are sold on a land-only basis. International flights, visa fees, and personal travel insurance are the responsibility of the traveler.</p>
-                    <h4 class="font-bold text-charcoal mt-4">4. Jurisdiction</h4>
-                    <p>These terms are governed by the laws of Queensland, Australia.</p>
-                `
-            },
             disclaimer: {
                 title: "Disclaimer",
                 content: `
@@ -433,6 +391,18 @@
                     <p>Travel involves inherent risks. By participating in a She Travels Far journey, you acknowledge that you are voluntarily participating in these activities and assume all risk of injury, illness, or damage to personal property.</p>
                     <h4 class="font-bold text-charcoal mt-4">3. Third Party Services</h4>
                     <p>We act as an agent for third-party suppliers (hotels, transport, activities). We are not liable for the acts, omissions, or negligence of these third-party suppliers.</p>
+                `
+            },
+            privacy: {
+                title: "Privacy Policy",
+                content: `
+                    <iframe src="SheTravelsFarPrivacyPolicy.html" class="w-full h-[50vh] border-none rounded-md" title="Privacy Policy"></iframe>
+                `
+            },
+            terms: {
+                title: "Terms & Conditions",
+                content: `
+                    <iframe src="SheTravelsFarTermsConditions.html" class="w-full h-[50vh] border-none rounded-md" title="Terms & Conditions"></iframe>
                 `
             }
         };
@@ -477,7 +447,6 @@
             });
 
             // 2. Supabase Integration
-            // Using the credentials you provided
             const supabaseUrl = 'https://bkpjlcqynldtmksxtcty.supabase.co';
             const supabaseKey = 'sb_publishable_qu5k31ByzvqOMCvvhxgQew_RZzbV-5e';
             const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
